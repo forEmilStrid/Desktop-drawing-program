@@ -1,25 +1,31 @@
 package model;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Tool {
-  private ToolAction toolAction;
-  private ToolCommand toolCommand;
-  private Map<Integer, String> currChange;
+  private ToolAction start, during;
+  private ToolCommand end;
+  private Map<int[], Color> currChange;
 
-  public Tool(ToolAction toolAction, ToolCommand toolCommand) {
-    this.toolAction = toolAction;
-    this.toolCommand = toolCommand;
+  public Tool(ToolAction start, ToolAction during, ToolCommand end) {
+    this.start = start;
+    this.during = during;
+    this.end = end;
     currChange = new HashMap<>();
   }
 
-  public void performToolAction() {
-    toolAction.performToolAction();
+  public void startToolAction(Canvas canvas, int x, int y) {
+    start.performToolAction(canvas, x, y);
   }
 
-  public DrawCommand endToolAction() {
-    DrawCommand cmd = toolCommand.getCommand(currChange);
+  public void performToolAction(Canvas canvas, int x, int y) {
+    during.performToolAction(canvas, x, y);
+  }
+
+  public Command endToolAction() {
+    Command cmd = end.getCommand(currChange);
     currChange = new HashMap<>();
     return cmd;
   }

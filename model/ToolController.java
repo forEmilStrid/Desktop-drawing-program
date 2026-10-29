@@ -7,11 +7,11 @@ public class ToolController {
     this.tool = tool;
   }
 
-  public void performToolAction() {
-    tool.performToolAction();
+  public void performToolAction(Canvas canvas, int x, int y) {
+    tool.performToolAction(canvas, x, y);
   }
 
-  public DrawCommand endToolAction() {
+  public Command endToolAction() {
     return tool.endToolAction();
   }
 }
