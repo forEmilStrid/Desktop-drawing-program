@@ -1,23 +1,25 @@
 package model;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Map;
 
 public class DrawCommand implements Command {
-  private Map<int[], Color> data;
+  private List<int[]> data;
 
-  public DrawCommand(Map<int[], Color> data) {
+  public DrawCommand(List<int[]> data) {
     this.data = data;
   }
 
   @Override
-  public void execute(Canvas canvas) {
+  public void execute(BufferedImage canvas) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'execute'");
   }
 
   @Override
-  public void undo(Canvas canvas) {
+  public void undo(BufferedImage canvas) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'undo'");
   }

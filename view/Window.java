@@ -1,11 +1,13 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 public class Window {
 
@@ -13,23 +15,34 @@ public class Window {
     EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
-        new Window();
+        new Window(700, 700, new Color(49, 6, 47));
       }
     });
   }
 
-  public Window() {
+  public Window(int width, int height, Color bgColor) {
     JFrame frame = new JFrame();
-    JPanel panel = new JPanel();
-    ToolPicker toolPicker = new ToolPicker();
-    CanvasWindow canvasWindow = new CanvasWindow();
+    JPanel panel = new JPanel(new BorderLayout());
+
+    JPanel rightColumn = new RightColumn(bgColor);
+    JPanel leftColumn = new LeftColumn(bgColor);
+
+    BufferedImage canvasImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    JPanel canvas = new CanvasPanel(canvasImage);
+    
 
 
 
     frame.setContentPane(panel);
-    panel.setLayout(new BorderLayout());
+    panel.add(rightColumn, BorderLayout.EAST);
+    panel.add(canvas, BorderLayout.CENTER);
+    panel.add(leftColumn, BorderLayout.WEST);
 
-    panel.add(toolPicker, SwingConstants.WEST);
-    panel.add(canvasWindow, SwingConstants.CENTER);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+    frame.pack();
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
+
   }
 }

@@ -1,8 +1,10 @@
 package model;
 
+import java.awt.image.BufferedImage;
+
 public interface Command {
-  void execute(Canvas canvas);
-  void undo(Canvas canvas);
+  void execute(BufferedImage canvas);
+  void undo(BufferedImage canvas);
 
   public default boolean shouldStack() {
     return true;

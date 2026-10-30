@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.image.BufferedImage;
+
 public interface ToolAction {
-  void performToolAction(Canvas canvas, int x, int y);
+  void performToolAction(BufferedImage canvas, int x, int y);
 }

@@ -1,14 +1,16 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class LeftColumn extends JPanel {
-  public LeftColumn() {
-    setLayout(new BorderLayout());
+  public LeftColumn(Color bgColor) {
+    super(new BorderLayout());
+    setBackground(bgColor);
     ToolPicker toolPicker = new ToolPicker();
-    add(toolPicker, SwingConstants.TOP);
+    toolPicker.setBackground(bgColor);
+    add(toolPicker, BorderLayout.NORTH);
   }
 }

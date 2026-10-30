@@ -1,32 +1,34 @@
 package model;
 
 import java.awt.Color;
-import java.util.HashMap;
+import java.util.List;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class Tool {
   private ToolAction start, during;
   private ToolCommand end;
-  private Map<int[], Color> currChange;
+  private List<int[]> currChange;
 
   public Tool(ToolAction start, ToolAction during, ToolCommand end) {
     this.start = start;
     this.during = during;
     this.end = end;
-    currChange = new HashMap<>();
+    currChange = new ArrayList<>();
   }
 
-  public void startToolAction(Canvas canvas, int x, int y) {
+  public void startToolAction(BufferedImage canvas, int x, int y) {
     start.performToolAction(canvas, x, y);
   }
 
-  public void performToolAction(Canvas canvas, int x, int y) {
+  public void performToolAction(BufferedImage canvas, int x, int y, int lastX, int lastY) {
     during.performToolAction(canvas, x, y);
   }
 
   public Command endToolAction() {
     Command cmd = end.getCommand(currChange);
-    currChange = new HashMap<>();
+    currChange = new ArrayList<>();
     return cmd;
   }
 }
