@@ -1,6 +1,8 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -13,45 +15,29 @@ import model.*;
 public class CanvasPanel extends JPanel {
 
   BufferedImage canvas;
-  int lastX;
-  int lastY;
+  ChangeManager changeManager;
   ToolController toolController;
 
 
-  public CanvasPanel(BufferedImage canvas) {
+  public CanvasPanel(BufferedImage canvas, ChangeManager changeManager) {
     this.canvas = canvas;
-    toolController = new ToolController();
+    this.changeManager = changeManager;
+    toolController = new ToolController(new PenTool(canvas, changeManager), Color.BLACK, this);
+    addMouseListener(toolController);
+    addMouseMotionListener(toolController);
+    addMouseWheelListener(toolController);
 
     setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
+    var g = canvas.createGraphics();
+    g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    g.dispose();
 
-    MouseAdapter mouseListener = new MouseAdapter() {
-      @Override
-      public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+  }
 
-        toolController.startToolAction(canvas, x, y);
-
-        lastX = x;
-        lastY = y;
-      }
-
-      @Override
-      public void mouseDragged(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-
-        toolController.performToolAction(canvas, x, y, lastX, lastY);
-
-        lastX = x;
-        lastY = y;
-      }
-
-      @Override
-      public void mouseReleased(MouseEvent e) {
-        toolController.endToolAction();
-      }
-    };
+  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(canvas, 0, 0, this);
   }
 
 }
