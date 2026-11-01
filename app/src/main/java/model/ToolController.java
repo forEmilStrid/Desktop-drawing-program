@@ -20,6 +20,10 @@ public class ToolController extends MouseAdapter {
     color = startingColor;
   }
 
+  public void printTool() {
+    System.out.println(tool.toString());
+  }
+
   public void setTool(Tool tool) {
     this.tool = tool;
   }

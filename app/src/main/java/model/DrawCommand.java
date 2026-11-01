@@ -1,9 +1,7 @@
 package model;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.Map;
 
 public class DrawCommand implements Command {
   private List<int[]> data;

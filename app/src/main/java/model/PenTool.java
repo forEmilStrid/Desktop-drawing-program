@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -24,10 +23,7 @@ public class PenTool implements Tool {
   }
 
   @Override
-  public void onMouseClicked(int x, int y, int lastX, int lastY, Color color) {
-    Graphics2D graphics = canvas.createGraphics();
-    graphics.setColor(color);
-    graphics.drawRect(x, y, 50, 50);
-    graphics.dispose();
+  public String toString() {
+    return "Pen";
   }
 }

@@ -7,11 +7,9 @@ import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 
 public class RightColumn extends JPanel {
-  public RightColumn(Color bgColor) {
+  public RightColumn() {
     super(new BorderLayout());
-    setBackground(bgColor);
     JColorChooser colorPicker = new JColorChooser(Color.BLACK);
-    colorPicker.setBackground(bgColor);
     colorPicker.setPreviewPanel(new JPanel());
     add(colorPicker, BorderLayout.NORTH);
   }

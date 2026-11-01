@@ -11,5 +11,9 @@ public class EraserTool implements Tool {
     this.changeManager = changeManager;
   }
 
-  //TODO implementation
+
+  @Override
+  public String toString() {
+    return "ERASER";
+  }
 }
