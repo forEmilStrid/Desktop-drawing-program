@@ -32,7 +32,10 @@ public class ChangeManager {
   }
 
   public void addChange(Command command) {
-    undoStack.add(command);
+    if (command.shouldStack()) {
+      undoStack.add(command);
+    }
+    else return;
 
     if (undoStack.size() > undoStackSize) {
       undoStack.removeLast();

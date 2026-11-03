@@ -38,10 +38,11 @@ public class Window {
     JMenuBar menuBar = new MenuBar();
 
     BufferedImage canvasImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
     ChangeManager changeManager = new ChangeManager(canvasImage, 10, 10);
     JPanel canvas = new CanvasPanel(canvasImage, changeManager);
-    ToolController toolController = new ToolController(new PenTool(canvasImage, changeManager), Color.BLACK, canvas);
-    ToolFactory toolFactory = new ToolFactory(canvasImage, changeManager);
+    ToolController toolController = new ToolController(new PenTool(canvasImage, changeManager, canvas), Color.BLACK, canvas);
+    ToolFactory toolFactory = new ToolFactory(canvasImage, changeManager, canvas);
 
     canvas.addMouseListener(toolController);
     canvas.addMouseMotionListener(toolController);
