@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -7,52 +9,70 @@ import java.util.Deque;
 public class ChangeManager {
   private Deque<Command> undoStack = new ArrayDeque<>();
   private Deque<Command> redoStack = new ArrayDeque<>();
+  private BufferedImage groundCanvas;
   private BufferedImage canvas;
   private int undoStackSize;
   private int redoStackSize;
 
   public ChangeManager(BufferedImage canvas, int undoStackSize, int redoStackSize) {
     this.canvas = canvas;
+    groundCanvas = Drawing.deepCopyCanvas(canvas);
     this.undoStackSize = undoStackSize;
     this.redoStackSize = redoStackSize;
   }
-  
+
   private void redraw() {
+    Drawing.fillCanvas(canvas, Color.WHITE);
+    Drawing.overWriteCanvas(groundCanvas, canvas);
     for (Command cmd : undoStack.reversed()) {
       cmd.execute(canvas);
     }
   }
 
   private void addToRedoStack(Command cmd) {
-    redoStack.add(cmd);
+    redoStack.addFirst(cmd);
 
-    if (undoStack.size() > redoStackSize) {
-      undoStack.removeLast();
+    if (redoStack.size() > redoStackSize) {
+      redoStack.removeLast();
     }
   }
 
-  public void addChange(Command command) {
+  private void addChange(Command command) {
     if (command.shouldStack()) {
-      undoStack.add(command);
+      undoStack.addFirst(command);
     }
     else return;
 
     if (undoStack.size() > undoStackSize) {
-      undoStack.removeLast();
+      Command inActiveChange = undoStack.pollLast();
+      inActiveChange.execute(groundCanvas);
     }
+  }
 
+
+  public void addNewChange(Command command) {
+    addChange(command);
     redoStack = new ArrayDeque<>();
   }
 
   public void undo() {
-    Command unDoneCommand = undoStack.pop();
-    addToRedoStack(unDoneCommand);
-    redraw();
+    if (!undoStack.isEmpty()) {
+      Command unDoneCommand = undoStack.pop();
+      addToRedoStack(unDoneCommand);
+      redraw();
+    }
   }
 
   public void redo() {
-    Command reDoneCommand = redoStack.pop();
-    addChange(reDoneCommand);
-    redraw();
+    if (!redoStack.isEmpty()) {
+      Command reDoneCommand = redoStack.pop();
+      addChange(reDoneCommand);
+      redraw();
+    }
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Undo Stack: %s Redo Stack: %s", undoStack.toString(), redoStack.toString());
   }
 }

@@ -9,15 +9,13 @@ import javax.swing.JPanel;
 
 public class ToolController extends MouseAdapter {
   private Tool tool;
-  private Color color;
   private int lastX;
   private int lastY;
   private JPanel panel;
 
-  public ToolController(Tool startingTool, Color startingColor, JPanel panel) {
+  public ToolController(Tool startingTool, JPanel panel) {
     this.panel = panel;
     tool = startingTool;
-    color = startingColor;
   }
 
   public void printTool() {
@@ -29,7 +27,11 @@ public class ToolController extends MouseAdapter {
   }
 
   public void setColor(Color color) {
-    this.color = color;
+    tool.setColor(color);
+  }
+
+  public void setThickness(float thickness) {
+    tool.setThickness(thickness);
   }
 
   private void update(int x, int y) {
@@ -42,7 +44,7 @@ public class ToolController extends MouseAdapter {
   public void mouseClicked(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseClicked(x, y, lastX, lastY, color);
+    tool.onMouseClicked(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -50,7 +52,7 @@ public class ToolController extends MouseAdapter {
   public void mousePressed(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMousePress(x, y, lastX, lastY, color);
+    tool.onMousePress(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -58,7 +60,7 @@ public class ToolController extends MouseAdapter {
   public void mouseDragged(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseDragged(x, y, lastX, lastY, color);
+    tool.onMouseDragged(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -66,7 +68,7 @@ public class ToolController extends MouseAdapter {
   public void mouseEntered(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseEntered(x, y, lastX, lastY, color);
+    tool.onMouseEntered(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -74,7 +76,7 @@ public class ToolController extends MouseAdapter {
   public void mouseExited(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseExited(x, y, lastX, lastY, color);
+    tool.onMouseExited(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -82,7 +84,7 @@ public class ToolController extends MouseAdapter {
   public void mouseMoved(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseMoved(x, y, lastX, lastY, color);
+    tool.onMouseMoved(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -90,7 +92,7 @@ public class ToolController extends MouseAdapter {
   public void mouseReleased(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseReleased(x, y, lastX, lastY, color);
+    tool.onMouseReleased(x, y, lastX, lastY);
     update(x, y);
   }
 
@@ -98,7 +100,7 @@ public class ToolController extends MouseAdapter {
   public void mouseWheelMoved(MouseWheelEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseWheelMoved(x, y, lastX, lastY, color);
+    tool.onMouseWheelMoved(x, y, lastX, lastY);
     update(x, y);
   }
 }
