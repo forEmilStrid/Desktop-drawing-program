@@ -52,16 +52,19 @@ public class CanvasPanel extends JPanel {
       @Override
       public void mouseClicked(MouseEvent arg0) {
         requestFocusInWindow();
+        repaint();
       }
 
       @Override
       public void mouseDragged(MouseEvent e) {
         requestFocusInWindow();
+        repaint();
       }
 
       @Override
       public void mouseReleased(MouseEvent e) {
         requestFocusInWindow();
+        repaint();
       }
     });
   }

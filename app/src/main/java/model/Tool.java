@@ -11,7 +11,8 @@ public interface Tool {
   default void onMouseDragged(int x, int y, int lastX, int lastY) {};
   default void onMouseMoved(int x, int y, int lastX, int lastY) {};
   default void onMouseWheelMoved(int x, int y, int lastX, int lastY) {};
+  default void onMouseBeginDragg(int x, int y, int lastX, int lastY) {}
 
   default void setColor(Color c) {};
-  default void setThickness(float thickness) {};
+  default void setThickness(float thickness) {}
 }

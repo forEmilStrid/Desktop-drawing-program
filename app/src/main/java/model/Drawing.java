@@ -2,6 +2,8 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 
 public class Drawing {
@@ -28,5 +30,21 @@ public class Drawing {
     return b;
   }
 
+  public static void drawLine(BufferedImage canvas, int startX, int startY, int endX, 
+    int endY, Color color, Stroke brush) {
+    Graphics2D graphics = canvas.createGraphics();
+    graphics.setColor(color);
+    graphics.setStroke(brush);
+    graphics.drawLine(startX, startY, endX, endY);
+    graphics.dispose();
+  }
+
+  public static void drawShape(BufferedImage canvas, Path2D shape, Stroke brush, Color color) {
+    Graphics2D g = canvas.createGraphics();
+    g.setStroke(brush);
+    g.setColor(color);
+    g.draw(shape);
+    g.dispose();
+  }
 
 }

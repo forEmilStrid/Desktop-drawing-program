@@ -12,6 +12,7 @@ public class ToolController extends MouseAdapter {
   private int lastX;
   private int lastY;
   private JPanel panel;
+  private boolean mouseDown = false;
 
   public ToolController(Tool startingTool, JPanel panel) {
     this.panel = panel;
@@ -60,7 +61,13 @@ public class ToolController extends MouseAdapter {
   public void mouseDragged(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    tool.onMouseDragged(x, y, lastX, lastY);
+    if (!mouseDown) {
+      tool.onMouseBeginDragg(x, y, lastX, lastY);
+      mouseDown = true;
+    }
+    else {
+      tool.onMouseDragged(x, y, lastX, lastY);
+    }
     update(x, y);
   }
 

@@ -4,44 +4,41 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
 
-public class DrawTool implements Tool {
-  private BufferedImage canvas;
-  private ChangeManager changeManager;
-  private JPanel canvasPanel;
-  private List<Point> currChange = new ArrayList<>();
+public class DrawTool extends CanvasTool {
+  private Path2D currChange = new Path2D.Float();
   protected BasicStroke brush;
   protected Color color;
 
   public DrawTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel) {
-    this.canvas = canvas;
-    this.changeManager = changeManager;
-    this.canvasPanel = canvasPanel;
+    super(canvas, changeManager, canvasPanel);
   }
   
   @Override
+  public void onMouseBeginDragg(int x, int y, int lastX, int lastY) {
+    currChange.moveTo(lastX, lastY);
+  }
+
+  @Override
   public void onMouseDragged(int x, int y, int lastX, int lastY) {
-    Graphics2D graphics = canvas.createGraphics();
-
-    graphics.setColor(color);
-    graphics.setStroke(brush);
-    graphics.drawLine(lastX, lastY, x, y);
-    graphics.dispose();
-    canvasPanel.repaint();
-
-    currChange.add(new Point(lastX, lastY));
+    Drawing.drawLine(canvas, lastX, lastY, x, y, color, brush);
+    currChange.moveTo(lastX, lastY);
+    currChange.lineTo(x, y);
   }
 
   @Override
   public void onMouseReleased(int x, int y, int lastX, int lastY) {
-    if (!currChange.isEmpty()) {
-      currChange.add(new Point(x, y));
-      changeManager.addNewChange(new DrawCommand(new ArrayList<>(currChange), color, new BasicStroke(
+    if (!PathUtils.isEmpty(currChange)) {
+      currChange.moveTo(lastX, lastY);
+      currChange.lineTo(x, y);
+      changeManager.addNewChange(new DrawCommand(currChange, color, new BasicStroke(
         brush.getLineWidth(), 
         brush.getEndCap(), 
         brush.getLineJoin(), 
@@ -49,7 +46,7 @@ public class DrawTool implements Tool {
         brush.getDashArray(),
         brush.getDashPhase()
       )));
-      currChange = new ArrayList<>();
+      currChange = new Path2D.Float();
     }
   }
 
