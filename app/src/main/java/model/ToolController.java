@@ -100,6 +100,7 @@ public class ToolController extends MouseAdapter {
     int x = e.getX();
     int y = e.getY();
     tool.onMouseReleased(x, y, lastX, lastY);
+    mouseDown = false;
     update(x, y);
   }
 

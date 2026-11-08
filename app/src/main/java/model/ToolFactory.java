@@ -10,12 +10,14 @@ public class ToolFactory {
   BufferedImage canvas;
   ChangeManager changeManager;
   JPanel canvasPanel;
+  ToolController toolController;
 
 
-  public ToolFactory(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel) {
+  public ToolFactory(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
     this.canvas = canvas;
     this.changeManager = changeManager;
     this.canvasPanel = canvasPanel;
+    this.toolController = toolController;
   }
 
   public Tool createTool(String tool, float thickness, Color color) {
@@ -44,7 +46,7 @@ public Tool createTool(String tool) {
         return new EraserTool(canvas, changeManager, canvasPanel);
       }
       case "recSelector": {
-        return new RectangleSelectionTool(canvas, changeManager, canvasPanel);
+        return new RectangleSelectionTool(canvas, changeManager, canvasPanel, toolController);
       }
       default: return new PenTool(canvas, changeManager, canvasPanel);
     }

@@ -48,7 +48,7 @@ public class Window {
     ChangeManager changeManager = new ChangeManager(canvasImage, 10, 10);
     JPanel canvas = new CanvasPanel(canvasImage, changeManager);
     ToolController toolController = new ToolController(new PenTool(canvasImage, changeManager, canvas), canvas);
-    ToolFactory toolFactory = new ToolFactory(canvasImage, changeManager, canvas);
+    ToolFactory toolFactory = new ToolFactory(canvasImage, changeManager, canvas, toolController);
     JColorChooser colorPicker = new JColorChooser(Color.BLACK);
     JSlider thicknesSlider = new JSlider(5, 100, 50);
 
