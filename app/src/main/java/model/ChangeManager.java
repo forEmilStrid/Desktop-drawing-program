@@ -21,8 +21,8 @@ public class ChangeManager {
     this.redoStackSize = redoStackSize;
   }
 
-  private void redraw() {
-    Drawing.fillCanvas(canvas, Color.WHITE);
+  public void redraw() {
+    Drawing.clearCanvas(canvas);
     Drawing.overWriteCanvas(groundCanvas, canvas);
     for (Command cmd : undoStack.reversed()) {
       cmd.execute(canvas);

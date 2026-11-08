@@ -1,9 +1,12 @@
 package model;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Drawing {
@@ -13,6 +16,10 @@ public class Drawing {
     g.setColor(color);
     g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     g.dispose();
+  }
+
+  public static void clearCanvas(BufferedImage canvas) {
+    fillCanvas(canvas, Color.WHITE);
   }
 
 
@@ -44,6 +51,29 @@ public class Drawing {
     g.setStroke(brush);
     g.setColor(color);
     g.draw(shape);
+    g.dispose();
+  }
+
+  public static void drawSelectionBorder(BufferedImage canvas, Rectangle2D selection) {
+    Drawing.drawDashedLine(canvas, (int) selection.getMinX(), (int) selection.getMinY(), (int) selection.getMaxX(), (int) selection.getMinY(), 5);
+    Drawing.drawDashedLine(canvas, (int) selection.getMaxX(), (int) selection.getMinY(), (int) selection.getMaxX(), (int) selection.getMaxY(), 5);
+    Drawing.drawDashedLine(canvas, (int) selection.getMaxX(), (int) selection.getMaxY(), (int) selection.getMinX(), (int) selection.getMaxY(), 5);
+    Drawing.drawDashedLine(canvas, (int) selection.getMinX(), (int) selection.getMaxY(), (int) selection.getMinX(), (int) selection.getMinY(), 5);
+  }
+
+public static void drawSelectionBorder(BufferedImage canvas, int startX, int startY, int endX, int endY) {
+    Drawing.drawDashedLine(canvas, startX, startY, endX, startY, 5);
+    Drawing.drawDashedLine(canvas, endX, startY, endX, endY, 5);
+    Drawing.drawDashedLine(canvas, endX, endY, startX, endY, 5);
+    Drawing.drawDashedLine(canvas, startX, endY, startX, startY, 5);
+  }
+
+  public static void drawDashedLine(BufferedImage canvas, int startX, int startY, int endX, int endY, int dashLength) {
+    Graphics2D g = canvas.createGraphics();
+    Stroke dashed = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+    g.setStroke(dashed);
+    g.setColor(Color.GRAY);
+    g.drawLine(startX, startY, endX, endY);
     g.dispose();
   }
 

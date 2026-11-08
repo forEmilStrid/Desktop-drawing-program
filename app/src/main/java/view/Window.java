@@ -54,6 +54,7 @@ public class Window {
 
     Tool pen = toolFactory.createTool("pen");
     Tool eraser = toolFactory.createTool("eraser");
+    Tool recSelector = toolFactory.createTool("recSelector");
     
     var penButton = new ToolButton(() -> {
       pen.setColor(colorPicker.getColor());
@@ -68,6 +69,10 @@ public class Window {
       toolController.printTool();
     });
     eraserButton.setText("ERASER");
+    var recSelectionButton = new ToolButton(() -> {
+      toolController.setTool(recSelector);
+    });
+    recSelectionButton.setText("REC SELECT");
 
     canvas.addMouseListener(toolController);
     canvas.addMouseMotionListener(toolController);
@@ -99,6 +104,7 @@ public class Window {
     rightColumn.add(thicknesSlider,BorderLayout.CENTER);
     leftColumn.addBtn(penButton);
     leftColumn.addBtn(eraserButton);
+    leftColumn.addBtn(recSelectionButton);
     frame.setContentPane(panel);
     frame.setJMenuBar(menuBar);
     panel.add(rightColumn, BorderLayout.EAST);

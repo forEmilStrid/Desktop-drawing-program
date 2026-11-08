@@ -43,6 +43,9 @@ public Tool createTool(String tool) {
       case "eraser": {
         return new EraserTool(canvas, changeManager, canvasPanel);
       }
+      case "recSelector": {
+        return new RectangleSelectionTool(canvas, changeManager, canvasPanel);
+      }
       default: return new PenTool(canvas, changeManager, canvasPanel);
     }
   }

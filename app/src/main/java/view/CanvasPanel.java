@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
@@ -22,6 +23,7 @@ public class CanvasPanel extends JPanel {
     this.changeManager = changeManager;
 
     setFocusable(true);
+    setBackground(Color.BLACK);
     setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
     var g = canvas.createGraphics();
     g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
