@@ -3,8 +3,14 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.net.URL;
 
+import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -16,7 +22,7 @@ import javax.swing.event.ChangeListener;
 
 import com.formdev.flatlaf.FlatDarkLaf; // or FlatLightLaf
 
-
+import de.lars.colorpicker.ColorPicker;
 import model.ChangeManager;
 import model.PenTool;
 import model.Tool;
@@ -50,61 +56,17 @@ public class Window {
     ToolController toolController = new ToolController(new PenTool(canvasImage, changeManager, canvas), canvas);
     ToolFactory toolFactory = new ToolFactory(canvasImage, changeManager, canvas, toolController);
     JColorChooser colorPicker = new JColorChooser(Color.BLACK);
-    JSlider thicknesSlider = new JSlider(5, 100, 50);
+    JSlider thicknesSlider = new ThicknessSlider(5, 100, 50);
 
-    Tool pen = toolFactory.createTool("pen");
-    Tool eraser = toolFactory.createTool("eraser");
-    Tool recSelector = toolFactory.createTool("recSelector");
-    
-    var penButton = new ToolButton(() -> {
-      pen.setColor(colorPicker.getColor());
-      pen.setThickness((float) thicknesSlider.getValue() / 10);
-      toolController.setTool(pen);
-      toolController.printTool();
-    });
-    penButton.setText("PEN");
-    var eraserButton = new ToolButton(() -> {
-      eraser.setThickness((float) thicknesSlider.getValue() / 10);
-      toolController.setTool(eraser);
-      toolController.printTool();
-    });
-    eraserButton.setText("ERASER");
-    var recSelectionButton = new ToolButton(() -> {
-      toolController.setTool(recSelector);
-    });
-    recSelectionButton.setText("REC SELECT");
 
     canvas.addMouseListener(toolController);
     canvas.addMouseMotionListener(toolController);
     canvas.addMouseWheelListener(toolController);
 
-    thicknesSlider.addChangeListener(new ChangeListener() {
 
-      @Override
-      public void stateChanged(ChangeEvent e) {
-        toolController.setThickness((float) thicknesSlider.getValue() / 10);
-      }
-      
-    });
+    ToolSettingsPanel rightColumn = new ToolSettingsPanel(thicknesSlider, toolController, colorPicker);
+    ToolPanel leftColumn = new ToolPanel(toolFactory, colorPicker, thicknesSlider, toolController);
 
-    colorPicker.getSelectionModel().addChangeListener(new ChangeListener() {
-      @Override
-      public void stateChanged(ChangeEvent e) {
-        toolController.setColor(colorPicker.getColor());
-      }
-    });
-
-    colorPicker.setPreviewPanel(new JPanel());
-
-
-    ToolSettingsPanel rightColumn = new ToolSettingsPanel();
-    ToolPanel leftColumn = new ToolPanel();
-
-    rightColumn.add(colorPicker, BorderLayout.NORTH);
-    rightColumn.add(thicknesSlider,BorderLayout.CENTER);
-    leftColumn.addBtn(penButton);
-    leftColumn.addBtn(eraserButton);
-    leftColumn.addBtn(recSelectionButton);
     frame.setContentPane(panel);
     frame.setJMenuBar(menuBar);
     panel.add(rightColumn, BorderLayout.EAST);

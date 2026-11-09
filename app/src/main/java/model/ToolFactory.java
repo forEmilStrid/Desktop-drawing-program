@@ -37,7 +37,23 @@ public class ToolFactory {
     }
   }
 
-public Tool createTool(String tool) {
+  public Tool createTool(String tool, float thickness) {
+    switch (tool) {
+      case "pen": {
+        var pen = new PenTool(canvas, changeManager, canvasPanel); 
+        pen.setThickness(thickness);
+        return pen;
+      }
+      case "eraser": {
+        var eraser = new EraserTool(canvas, changeManager, canvasPanel);
+        eraser.setThickness(thickness);
+        return eraser;
+      }
+      default: return new PenTool(canvas, changeManager, canvasPanel);
+    }
+  }
+
+  public Tool createTool(String tool) {
     switch (tool) {
       case "pen": {
         return new PenTool(canvas, changeManager, canvasPanel);

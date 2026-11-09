@@ -28,11 +28,19 @@ public class ToolController extends MouseAdapter {
   }
 
   public void setColor(Color color) {
-    tool.setColor(color);
+    ((HasColor) tool).setColor(color);
   }
 
   public void setThickness(float thickness) {
-    tool.setThickness(thickness);
+    ((HasThickness) tool).setThickness(thickness);
+  }
+
+  public Color getColor() {
+    return ((HasColor) tool).getColor();
+  }
+
+  public float getThickness() {
+    return ((HasThickness) tool).getThickness();
   }
 
   private void update(int x, int y) {

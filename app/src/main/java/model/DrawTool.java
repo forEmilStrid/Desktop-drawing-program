@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-public class DrawTool extends CanvasTool {
+public abstract class DrawTool extends CanvasTool {
   private Path2D currChange = new Path2D.Float();
   protected BasicStroke brush;
   protected Color color;
@@ -20,6 +20,7 @@ public class DrawTool extends CanvasTool {
   public DrawTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel) {
     super(canvas, changeManager, canvasPanel);
   }
+
   
   @Override
   public void onMouseBeginDragg(int x, int y, int lastX, int lastY) {
