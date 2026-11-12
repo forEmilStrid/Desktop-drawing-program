@@ -17,7 +17,7 @@ public abstract class DrawTool extends CanvasTool {
   protected BasicStroke brush;
   protected Color color;
 
-  public DrawTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel) {
+  public DrawTool(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel) {
     super(canvas, changeManager, canvasPanel);
   }
 
@@ -29,7 +29,7 @@ public abstract class DrawTool extends CanvasTool {
 
   @Override
   public void onMouseDragged(int x, int y, int lastX, int lastY) {
-    Drawing.drawLine(canvas, lastX, lastY, x, y, color, brush);
+    canvas.drawLine(lastX, lastY, x, y, color, brush);
     currChange.moveTo(lastX, lastY);
     currChange.lineTo(x, y);
   }

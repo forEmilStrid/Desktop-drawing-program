@@ -19,8 +19,8 @@ public class DrawCommand implements Command {
   }
 
   @Override
-  public void execute(BufferedImage canvas) {
-    Drawing.drawShape(canvas, data, brush, color);
+  public void execute(Canvas canvas) {
+    canvas.drawShape(data, brush, color);
   }
 
 }

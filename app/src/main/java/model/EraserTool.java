@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class EraserTool extends DrawTool implements HasThickness {
 
-  public EraserTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel) {
+  public EraserTool(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel) {
     super(canvas, changeManager, canvasPanel);
     color = Color.WHITE;
     setThickness(5.0f);

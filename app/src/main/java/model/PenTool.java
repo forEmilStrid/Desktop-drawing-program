@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class PenTool extends DrawTool implements HasColor, HasThickness {
 
-  public PenTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel) {
+  public PenTool(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel) {
     super(canvas, changeManager, canvasPanel);
     setThickness(5.0f);
     setColor(Color.BLACK);

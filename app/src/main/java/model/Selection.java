@@ -8,10 +8,10 @@ public class Selection implements Tool {
   private Rectangle selBounds;
   private Shape selection;
   private Shape orgSelection;
-  private BufferedImage canvas;
+  private Canvas canvas;
   private ChangeManager changeManager;
 
-  public Selection(BufferedImage canvas, ChangeManager changeManager, Shape selection) {
+  public Selection(Canvas canvas, ChangeManager changeManager, Shape selection) {
     selBounds = selection.getBounds();
     orgSelection = PathUtils.deepCopyShape(selection);
     this.selection = selection;

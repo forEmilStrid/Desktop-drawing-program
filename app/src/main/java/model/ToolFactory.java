@@ -7,13 +7,13 @@ import javax.swing.JPanel;
 
 public class ToolFactory {
 
-  BufferedImage canvas;
+  Canvas canvas;
   ChangeManager changeManager;
   JPanel canvasPanel;
   ToolController toolController;
 
 
-  public ToolFactory(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
+  public ToolFactory(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
     this.canvas = canvas;
     this.changeManager = changeManager;
     this.canvasPanel = canvasPanel;

@@ -13,7 +13,7 @@ public class SelectionCommand implements Command {
   }
 
   @Override
-  public void execute(BufferedImage canvas) {
+  public void execute(Canvas canvas) {
     
   }
 

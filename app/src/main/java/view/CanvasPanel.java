@@ -15,19 +15,18 @@ import model.*;
 
 public class CanvasPanel extends JPanel {
 
-  private BufferedImage canvas;
+  private Canvas canvas;
   private ChangeManager changeManager;
 
-  public CanvasPanel(BufferedImage canvas, ChangeManager changeManager) {
+  public CanvasPanel(Canvas canvas, ChangeManager changeManager) {
     this.canvas = canvas;
     this.changeManager = changeManager;
 
     setFocusable(true);
     setBackground(Color.BLACK);
-    setPreferredSize(new Dimension(canvas.getWidth(), canvas.getHeight()));
-    var g = canvas.createGraphics();
-    g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    g.dispose();
+    BufferedImage canvasImage = canvas.getImage();
+    setPreferredSize(new Dimension(canvasImage.getWidth(), canvasImage.getHeight()));
+    canvas.clear();
 
     addKeyListener(new KeyAdapter() {
       @Override
@@ -74,7 +73,7 @@ public class CanvasPanel extends JPanel {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.drawImage(canvas, 0, 0, this);
+    g.drawImage(canvas.getImage(), 0, 0, this);
   }
 
 }

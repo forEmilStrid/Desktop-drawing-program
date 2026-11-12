@@ -11,13 +11,13 @@ import javax.swing.JPanel;
 
 public class RectangleSelectionTool extends SelectionTool {
 
-  public RectangleSelectionTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
+  public RectangleSelectionTool(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
     super(canvas, changeManager, canvasPanel, toolController);
   }
 
   @Override
   protected void drawSelectionShape(int x, int y) {
-    Drawing.drawSelectionBorder(canvas, startX, startY, x, y);
+    canvas.drawSelectionBorder(startX, startY, x, y);
   }
 
   @Override

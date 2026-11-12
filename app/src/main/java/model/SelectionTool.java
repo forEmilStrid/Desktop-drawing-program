@@ -17,7 +17,7 @@ public abstract class SelectionTool extends CanvasTool {
   protected int startX;
   protected int startY;
   
-  public SelectionTool(BufferedImage canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
+  public SelectionTool(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel, ToolController toolController) {
     super(canvas, changeManager, canvasPanel);
     this.toolController = toolController;
   }

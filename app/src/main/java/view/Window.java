@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
 import com.formdev.flatlaf.FlatDarkLaf; // or FlatLightLaf
 
 import de.lars.colorpicker.ColorPicker;
+import model.Canvas;
 import model.ChangeManager;
 import model.PenTool;
 import model.Tool;
@@ -49,19 +50,19 @@ public class Window {
 
     JMenuBar menuBar = new MenuBar();
 
-    BufferedImage canvasImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Canvas canvas = new Canvas(width, height);
 
-    ChangeManager changeManager = new ChangeManager(canvasImage, 10, 10);
-    JPanel canvas = new CanvasPanel(canvasImage, changeManager);
-    ToolController toolController = new ToolController(new PenTool(canvasImage, changeManager, canvas), canvas);
-    ToolFactory toolFactory = new ToolFactory(canvasImage, changeManager, canvas, toolController);
+    ChangeManager changeManager = new ChangeManager(canvas, 10, 10);
+    JPanel canvasPanel = new CanvasPanel(canvas, changeManager);
+    ToolController toolController = new ToolController(new PenTool(canvas, changeManager, canvasPanel), canvasPanel);
+    ToolFactory toolFactory = new ToolFactory(canvas, changeManager, canvasPanel, toolController);
     JColorChooser colorPicker = new JColorChooser(Color.BLACK);
     JSlider thicknesSlider = new ThicknessSlider(5, 100, 50);
 
 
-    canvas.addMouseListener(toolController);
-    canvas.addMouseMotionListener(toolController);
-    canvas.addMouseWheelListener(toolController);
+    canvasPanel.addMouseListener(toolController);
+    canvasPanel.addMouseMotionListener(toolController);
+    canvasPanel.addMouseWheelListener(toolController);
 
 
     ToolSettingsPanel rightColumn = new ToolSettingsPanel(thicknesSlider, toolController, colorPicker);
@@ -70,7 +71,7 @@ public class Window {
     frame.setContentPane(panel);
     frame.setJMenuBar(menuBar);
     panel.add(rightColumn, BorderLayout.EAST);
-    panel.add(canvas, BorderLayout.CENTER);
+    panel.add(canvasPanel, BorderLayout.CENTER);
     panel.add(leftColumn, BorderLayout.WEST);
 
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

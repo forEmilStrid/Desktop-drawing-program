@@ -9,21 +9,21 @@ import java.util.Deque;
 public class ChangeManager {
   private Deque<Command> undoStack = new ArrayDeque<>();
   private Deque<Command> redoStack = new ArrayDeque<>();
-  private BufferedImage groundCanvas;
-  private BufferedImage canvas;
+  private Canvas groundCanvas;
+  private Canvas canvas;
   private int undoStackSize;
   private int redoStackSize;
 
-  public ChangeManager(BufferedImage canvas, int undoStackSize, int redoStackSize) {
+  public ChangeManager(Canvas canvas, int undoStackSize, int redoStackSize) {
     this.canvas = canvas;
-    groundCanvas = Drawing.deepCopyCanvas(canvas);
+    groundCanvas = canvas.deepCopyCanvas();
     this.undoStackSize = undoStackSize;
     this.redoStackSize = redoStackSize;
   }
 
   public void redraw() {
-    Drawing.clearCanvas(canvas);
-    Drawing.overWriteCanvas(groundCanvas, canvas);
+    canvas.clear();
+    canvas.overWriteCanvas(groundCanvas);
     for (Command cmd : undoStack.reversed()) {
       cmd.execute(canvas);
     }
