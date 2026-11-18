@@ -19,6 +19,5 @@ public class Selection implements Tool {
     this.changeManager = changeManager;
   }
 
-
-
+  
 }

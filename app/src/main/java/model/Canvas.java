@@ -29,6 +29,19 @@ public class Canvas {
     return canvas;
   }
 
+  public void setClip(Shape clip) {
+    g.setClip(null);
+    g.setClip(clip);
+  }
+
+  public void addToClip(Shape clip) {
+    g.setClip(clip);
+  }
+
+  public boolean insideClip(int x, int y) {
+    return g.getClip().contains(x, y);
+  }
+
   public void fill(Color color) {
     g.setColor(color);
     g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -72,13 +85,8 @@ public class Canvas {
     g.drawLine(startX, startY, endX, endY);
   }
 
-  public void drawShape(Path2D shape, Stroke brush, Color color) {
+  public void drawShape(Shape shape, Stroke brush, Color color) {
     g.setStroke(brush);
-    g.setColor(color);
-    g.draw(shape);
-  }
-
-  public void drawShape(Path2D shape, Color color) {
     g.setColor(color);
     g.draw(shape);
   }
@@ -91,23 +99,6 @@ public class Canvas {
   public void drawImage(BufferedImage imageToDraw, int x, int y) {
     g.drawImage(imageToDraw, x, y, null);
   }
-
-  //NOT DONE
-  public void rotateAndDrawImage(BufferedImage imageToDraw, double theta, int x, int y) {
-    Graphics2D g = imageToDraw.createGraphics();
-    g.rotate(theta);
-    drawImage(imageToDraw, x, y);
-    g.dispose();
-  }
-
-  //NOT DONE
-  public void scaleAndDrawImage(BufferedImage imageToDraw, double sx, double sy, int x, int y) {
-    Graphics2D g = imageToDraw.createGraphics();
-    g.scale(sx, sy);
-    drawImage(imageToDraw, x, y);
-    g.dispose();
-  }
-
 
   public void drawSelectionBorder(Rectangle2D selection) {
     drawDashedLine((int) selection.getMaxX(), (int) selection.getMinY(), (int) selection.getMinX(), (int) selection.getMinY(), 5, 0.5f, Color.GRAY);

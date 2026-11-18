@@ -29,9 +29,10 @@ public abstract class DrawTool extends CanvasTool {
 
   @Override
   public void onMouseDragged(int x, int y, int lastX, int lastY) {
-    canvas.drawLine(lastX, lastY, x, y, color, brush);
     currChange.moveTo(lastX, lastY);
     currChange.lineTo(x, y);
+    changeManager.redraw();
+    canvas.drawShape(currChange, brush, color);
   }
 
   @Override
