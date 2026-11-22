@@ -32,12 +32,9 @@ public abstract class SelectionTool extends CanvasTool {
     float dy = (float) Math.abs(startY - y);
     Shape sel = getShape(recX, recY, dx, dy);
 
-    toolController.setTool(new Selection(canvas, changeManager, sel));
-    //Drawing.drawShape(canvas, sel, Color.WHITE);
-
-
     if (!sel.getBounds().isEmpty()) {
       changeManager.addNewChange(new SelectionCommand(sel));
+      new Selection(canvas, changeManager, sel);
     }
   }
 
@@ -55,7 +52,10 @@ public abstract class SelectionTool extends CanvasTool {
 
   @Override
   public void onMouseClicked(int x, int y, int lastX, int lastY) {
-    changeManager.redraw();
+    if (!canvas.insideClip(x, y)) {
+      System.out.println("not inside clip");
+      changeManager.redraw();
+    }
   }
 
   @Override

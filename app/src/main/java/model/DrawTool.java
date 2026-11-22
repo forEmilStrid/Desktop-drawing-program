@@ -20,7 +20,6 @@ public abstract class DrawTool extends CanvasTool {
   public DrawTool(Canvas canvas, ChangeManager changeManager, JPanel canvasPanel) {
     super(canvas, changeManager, canvasPanel);
   }
-
   
   @Override
   public void onMouseBeginDragg(int x, int y, int lastX, int lastY) {

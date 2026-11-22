@@ -39,7 +39,11 @@ public class Canvas {
   }
 
   public boolean insideClip(int x, int y) {
-    return g.getClip().contains(x, y);
+    Shape clip = g.getClip();
+    if (clip != null) {
+      return clip.contains(x, y);
+    }
+    return false;
   }
 
   public void fill(Color color) {
@@ -100,11 +104,11 @@ public class Canvas {
     g.drawImage(imageToDraw, x, y, null);
   }
 
-  public void drawSelectionBorder(Rectangle2D selection) {
-    drawDashedLine((int) selection.getMaxX(), (int) selection.getMinY(), (int) selection.getMinX(), (int) selection.getMinY(), 5, 0.5f, Color.GRAY);
-    drawDashedLine((int) selection.getMaxX(), (int) selection.getMinY(), (int) selection.getMaxX(), (int) selection.getMaxY(), 5, 0.5f, Color.GRAY);
-    drawDashedLine((int) selection.getMinX(), (int) selection.getMaxY(), (int) selection.getMaxX(), (int) selection.getMaxY(), 5, 0.5f, Color.GRAY);
-    drawDashedLine((int) selection.getMinX(), (int) selection.getMaxY(), (int) selection.getMinX(), (int) selection.getMinY(), 5, 0.5f, Color.GRAY);
+  public void drawSelectionBorder(Shape selection) {
+    Stroke dashed = new BasicStroke(0.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+    g.setStroke(dashed);
+    drawShape(selection, Color.GRAY);
+    System.out.println("drawing border");
   }
 
   public void drawSelectionBorder(int startX, int startY, int endX, int endY) {
@@ -121,11 +125,5 @@ public class Canvas {
     drawLine((int) selection.getMinX(), (int) selection.getMaxY(), (int) selection.getMinX(), (int) selection.getMinY(), 1.0f, Color.GRAY);
   }
 
-  public void drawSelectionDoneBorder(int startX, int startY, int endX, int endY) {
-    drawLine(endX, startY, startX, startY, 1.0f, Color.GRAY);
-    drawLine(endX, startY, endX, endY, 1.0f, Color.GRAY);
-    drawLine(startX, endY, endX, endY, 1.0f, Color.GRAY);
-    drawLine(startX, endY, startX, startY, 1.0f, Color.GRAY);
-  }
 
 }

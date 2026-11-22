@@ -22,6 +22,6 @@ public class RectangleSelectionTool extends SelectionTool {
 
   @Override
   protected Shape getShape(float recX, float recY, float dx, float dy) {
-    return new Rectangle(startX, startY, startY, startX);
+    return new Rectangle2D.Float(recX, recY, dx, dy);
   }
 }
